@@ -1,0 +1,592 @@
+
+ <!-- http://localhost:8500/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<title>Company Login Page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<style>
+	
+    .form-control{
+		height: 50px;
+		background: #f2f2f2;
+		box-shadow: none !important;
+		border: none;
+	}
+	.form-control:focus{
+		background: #e2e2e2;
+	}
+    .form-control, .btn{        
+        border-radius: 3px;
+    }
+	.signup-form{
+		width: 390px;
+		margin: 30px auto;
+	}
+	.signup-form form{
+		color: #999;
+		border-radius: 3px;
+    	margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+	.signup-form h2 {
+		color: #333;
+		font-weight: bold;
+        margin-top: 0;
+    }
+    .signup-form hr {
+        margin: 0 -30px 20px;
+    }    
+	.signup-form .form-group{
+		margin-bottom: 20px;
+	}
+	.signup-form input[type="checkbox"]{
+		margin-top: 3px;
+	}
+	.signup-form .row div:first-child{
+		padding-right: 10px;
+	}
+	.signup-form .row div:last-child{
+		padding-left: 10px;
+	}
+    .signup-form .btn{        
+        font-size: 16px;
+        font-weight: bold;
+		background: #3598dc;
+		border: none;
+		min-width: 140px;
+    }
+	.signup-form .btn:hover, .signup-form .btn:focus{
+		background: #2389cd !important;
+        outline: none;
+	}
+    .signup-form a{
+		color: #fff;
+		text-decoration: underline;
+	}
+	.signup-form a:hover{
+		text-decoration: none;
+	}
+	.signup-form form a{
+		color: #3598dc;
+		text-decoration: none;
+	}	
+	.signup-form form a:hover{
+		text-decoration: underline;
+	}
+    .signup-form .hint-text {
+		padding-bottom: 15px;
+		text-align: center;
+    }
+    .submit-button {
+			background-color: black;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+</style>
+</head>
+
+<?php
+    session_start();
+    if(isset($_SESSION['rejcand'])){
+        
+        
+        echo "<div class='alert alert-danger'>Candidate rejected</div>";
+        unset($_SESSION['rejcand']);
+    }
+    if(isset($_SESSION['candrejbycomp'])){
+        
+        
+        echo "<div class='alert alert-danger'>Candidate rejected. Please wait for confirmation</div>";
+        unset($_SESSION['candrejbycomp']);
+    }
+
+    
+
+    ///add for applications received
+?>
+
+ <form action="comp_applications.php" method="post">
+<body>
+<div class="form-btn">
+                <input type="submit"  value="Home Page" name="home" class="submit-button">
+            </div>
+	<?php
+	if (isset($_POST["home"])) {
+		header("Location: http://localhost:8100/");
+	}
+	?>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" 		background = "#0f2862"
+ rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+ <body style="background-color: #0000;
+		font-family: 'Roboto', sans-serif;
+	">
+  <!-- your page content here -->
+</body>
+
+
+
+
+
+  
+</div>
+<div style="display: flex;">
+  <div style="flex: 1;">
+    <label for="sector">Branch:</label><br>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="sectorDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select Branch
+      </button>
+      <div class="dropdown-menu" aria-labelledby="sectorDropdown">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sector" id="cse" value="CSE">
+          <label class="form-check-label" for="cse">
+            CSE
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sector" id="ai" value="AI&DS">
+          <label class="form-check-label" for="ai">
+            AI&DS
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sector" id="mnc" value="MnC">
+          <label class="form-check-label" for="mnc">
+            Maths and Computing
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sector" id="elec" value="Elec">
+          <label class="form-check-label" for="elec">
+            Elec
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sector" id="mech" value="Mech">
+          <label class="form-check-label" for="mech">
+            Mechanical
+          </label>
+        </div>
+
+        
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sector" id="chem" value="Chem">
+          <label class="form-check-label" for="chem">
+            Chem
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sector" id="civil" value="Civil">
+          <label class="form-check-label" for="civil">
+            Civil
+          </label>
+        </div>
+        
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sector" id="met" value="Met">
+          <label class="form-check-label" for="met">
+            Met
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<script>
+  const checkboxes = document.querySelectorAll('input[type="radio"]');
+  const sectorDropdown = document.getElementById('sectorDropdown');
+  
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', function() {
+      let selectedValues = [];
+      checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+          selectedValues.push(checkbox.value);
+        }
+      });
+      
+      if (selectedValues.length > 0) {
+        sectorDropdown.innerHTML = selectedValues.join(', ');
+      } else {
+        sectorDropdown.innerHTML = 'Select Sector';
+      }
+    });
+  });
+</script>
+
+
+  <div style="flex: 1;">
+    <label for="title">Title:</label><br>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="titleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Enter Title
+      </button>
+      <div class="dropdown-menu" aria-labelledby="titleDropdown" onclick="showTextBox()">
+        <!-- <a class="dropdown-item" href="#" onclick="showTextBox()"> -->
+        
+    <!-- </a> -->
+      </div>
+    </div>
+    <input type="text" id="titleTextbox" name="titleTextbox" style="display: none;">
+  </div>
+
+  <div style="flex: 1;">
+    <label for="title2">CPI Eligibility:</label><br>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="titleDropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Enter min CPI
+      </button>
+      <div class="dropdown-menu" aria-labelledby="titleDropdown2" onclick="showTextBox2()">
+        <!-- <a class="dropdown-item" href="#" onclick="showTextBox()"> -->
+        
+    <!-- </a> -->
+      </div>
+    </div>
+    <input type="number" id="titleTextbox2" name="titleTextbox2" style="display: none;">
+  </div>
+
+  <div style="flex: 1;">
+    <label for="interviewDate">Interview Date:</label><br>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="submit" id="interviewDateDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select Date
+      </button>
+      <div class="dropdown-menu" aria-labelledby="interviewDateDropdown">
+        <input type="date" name="intdatefil" id="intdatefil" onchange="updateDateButton()">
+      </div>
+    </div>
+  </div>
+  <script>
+  function updateDateButton() {
+    var dateInput = document.getElementById("intdatefil");
+    var selectedDate = new Date(dateInput.value);
+    var formattedDate = selectedDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    document.getElementById("interviewDateDropdown").innerHTML = formattedDate;
+  }
+</script>
+
+
+
+
+
+
+        <!-- the next lines are very important. Main sorting algo  -->
+<!-- <label for="sort_order">Sort by interview date:</label>
+    <select name="sort_order" id="sort_order">
+        <option value="">Sort by</option>
+        <option value="ASC">Ascending</option>
+        <option value="DESC">Descending</option>
+    </select>
+    <button type="submit" name="sort_order_button">Sort</button> -->
+
+
+
+
+  <div style="flex: 1;">
+    <label for="filter">Filter</label><br>
+    <div><button type="submit" class="btn btn-primary " name="filter">Filter</button></div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+  function showTextBox() {
+    document.getElementById("titleTextbox").style.display = "block";
+  }
+</script>
+
+<script>
+  function showTextBox2() {
+    document.getElementById("titleTextbox2").style.display = "block";
+  }
+</script>
+<!-- yvgkbjnbvgcfyjvukbi,jlmjhgtfcygvhbjklm -->
+
+<br><br>
+
+
+
+</form>
+
+
+<br><br>
+<table class="table table-hover text-center float-right">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Branch</th>
+      <th scope="col">Email</th>
+      <th scope="col">CPI</th>
+      <th scope="col">Sector applied for</th>
+
+      <th scope="col">Title applied for</th>
+      <th scope="col">View student info</th>
+
+      <th scope="col">Accept</th>
+      <th scope="col">Reject</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <?php   
+    
+    
+        require_once "config.php";
+        $id=$_SESSION['id'];
+        error_reporting(E_ERROR | E_PARSE);
+
+        
+            // sort function
+
+            // $sql="SELECT * FROM jobs where id='$id' ORDER BY 
+            // CASE WHEN :sort_field = 'date_asc' THEN interdate END ASC,
+            // CASE WHEN :sort_field = 'date_desc' THEN interdate END DESC,
+            // CASE WHEN :sort_field = 'sector_asc' THEN sector END ASC,
+            // CASE WHEN :sort_field = 'sector_desc' THEN sector END DESC";
+
+            // $result = mysqli_query($conn, $sql);
+
+
+
+            // sort function
+
+  
+            
+            // sort function
+
+
+            if(isset($_POST['filter'])){
+
+                $c0=$c1=0;
+                $sector=$_POST['sector'];
+                $title=$_POST['titleTextbox'];
+                $cpi=$_POST['titleTextbox2'];
+            
+                //$title=$_POST['titfil'] ;
+                $interviewDate=$_POST['intdatefil'];
+                $applicationDate=$_POST['applidatefil'];
+
+                if(!empty($interviewDate)){
+
+                     $sql2= "SELECT *
+      FROM studentapply INNER JOIN mainstudenttable ON studentapply.rollno = mainstudenttable.rollno 
+      INNER JOIN jobs ON studentapply.title = jobs.title AND studentapply.sector = jobs.sector 
+      WHERE jobs.id = $id AND jobs.interdate = '$interviewDate'";
+      
+      $result2=mysqli_query($conn,$sql2);
+      while($row=mysqli_fetch_assoc($result2)){
+
+        ?>
+                    <tr>
+                       
+                        <th><?php echo $row['name']?></th>
+                        <th><?php echo $row['branch']?></th>
+                        <th><?php echo $row['email']?></th>
+                        <th><?php echo $row['cpi']?></th>
+                        <th><?php echo $row['sector']?></th>
+                        <th><?php echo $row['title']?></th>
+
+                        <td>
+                        <a href=" http://localhost:8301/?rollno=<?php echo $row['rollno']?> " class="link-dark"><i class="fa-solid fa-eye"></i></a>
+                            </td>  
+                        <td>
+                            <!-- accept -->
+                            
+                            <a href="http://localhost:8550/?title=<?php echo urlencode($row['title']) ?>&sector=<?php echo urlencode($row['sector'])?>&rollno=<?php echo urlencode($row['rollno']) ?>" class="link-dark"><i class="fa-solid fa-check-to-slot"></i></a>
+        
+                        </td>  
+                            <!--delete check out this shit, its not deleting  -->
+                            <td>                            
+                            <a href="http://localhost:8601/?title=<?php echo urlencode($row['title']) ?>&sector=<?php echo urlencode($row['sector'])?>&rollno=<?php echo urlencode($row['rollno']) ?>" class="link-dark"><i class="fa-solid fa-circle-xmark"></i></a>
+                            </td>  
+                            <!-- view all info -->
+                            
+                        </tr>
+                    <?php
+                }
+                
+
+                }
+
+                else{
+                $sql="SELECT *
+            FROM mainstudenttable s
+            INNER JOIN studentapply a ON s.rollno = a.rollno
+            WHERE a.id = '$id'
+            ";
+
+   
+
+    if (!empty($sector)) {
+    $sql .= " AND branch = '$sector'";
+    }
+
+    if (!empty($title)) {
+    $sql .= " AND title LIKE '%$title%'";
+    }
+
+    if(!empty($cpi)){
+        $sql .= "AND cpi > $cpi";
+    }
+
+    if (!empty($interviewDate)) {
+    $sql .= " AND interdate = '$interviewDate'";
+    }
+
+    if (!empty($applicationDate)) {
+    $sql .= " AND applidate = '$applicationDate'";
+    }
+
+    $order = 'ASC';
+
+    // Check if a sort order was selected
+    if (!empty($_POST['sort_order'])) {
+    $order = $_POST['sort_order'];
+    $sql .=" ORDER BY interdate $order";
+    $c0=1;
+
+    }
+
+    if (!empty($_POST['sort_order2'])) {
+        $order = $_POST['sort_order2'];
+        $sql .=" ORDER BY applidate $order";
+        $c1=1;
+
+        }
+    // Execute the query
+    if($c0===1 && $c1===1){
+        $_SESSION['error1']='both date orders selected';
+        header("Location: http://localhost:8100/ ");}
+                
+                $result = mysqli_query($conn,$sql);
+
+                while ($row= mysqli_fetch_assoc($result) ){
+                    ?>
+                    <tr>
+                       
+                        <th><?php echo $row['name']?></th>
+                        <th><?php echo $row['branch']?></th>
+                        <th><?php echo $row['email']?></th>
+                        <th><?php echo $row['cpi']?></th>
+                        <th><?php echo $row['sector']?></th>
+                        <th><?php echo $row['title']?></th>
+
+                        <td>
+                            <a href=" http://localhost:8301/?rollno=<?php echo $row['rollno']?> " class="link-dark"><i class="fa-solid fa-eye"></i></a>
+                            </td>  
+                        <td>
+                            <!-- accept -->
+                            
+                            <a href="http://localhost:8550/?title=<?php echo urlencode($row['title']) ?>&sector=<?php echo urlencode($row['sector'])?>&rollno=<?php echo urlencode($row['rollno']) ?>" class="link-dark"><i class="fa-solid fa-check-to-slot"></i></a>
+        
+                        </td>  
+                            <!--delete check out this shit, its not deleting  -->
+                            <td>                            
+                            <a href="http://localhost:8601/?title=<?php echo urlencode($row['title']) ?>&sector=<?php echo urlencode($row['sector'])?>&rollno=<?php echo urlencode($row['rollno']) ?>" class="link-dark"><i class="fa-solid fa-circle-xmark"></i></a>
+                            </td>  
+                            <!-- view all info -->
+                            
+                        </tr>
+                    <?php
+                }
+                ?>
+
+
+
+
+
+                
+                    
+
+                    
+                    
+                    
+                
+              
+        <!-- //             
+                    
+        //             <td>
+        //                  update -->
+                      
+                 <?php
+            }
+        }
+                      
+            
+       
+        
+
+        else{
+
+            
+            
+                
+            $sql="SELECT *
+            FROM mainstudenttable s
+            INNER JOIN studentapply a ON s.rollno = a.rollno
+            WHERE a.id = '$id'
+            ";
+            
+            $result = mysqli_query($conn,$sql);
+
+            while ($row= mysqli_fetch_assoc($result) ){
+                ?>
+                <tr>
+                    <?php 
+                    $_SESSION['sector']=$row['sector'];
+                    $_SESSION['title']=$row['title'];
+
+                    ?>
+                    <th><?php echo $row['name']?></th>
+                    <th><?php echo $row['branch']?></th>
+                    <th><?php echo $row['email']?></th>
+                    <th><?php echo $row['cpi']?></th>
+                    <th><?php echo $row['sector']?></th>
+                    <th><?php echo $row['title']?></th>
+
+                    <td>
+                    <a href=" http://localhost:8301/?rollno=<?php echo $row['rollno']?> " class="link-dark"><i class="fa-solid fa-eye"></i></a>
+                        </td>  
+                    <td>
+                        <!-- update -->
+                        
+                        <a href="http://localhost:8550/?title=<?php echo urlencode($row['title']) ?>&sector=<?php echo urlencode($row['sector'])?>&rollno=<?php echo urlencode($row['rollno']) ?>" class="link-dark"><i class="fa-solid fa-check-to-slot"></i></a>
+    
+                    </td>  
+                         <!--delete check out this shit, its not deleting  -->
+                        <td>                            
+                        <a href="http://localhost:8601/?title=<?php echo urlencode($row['title']) ?>&sector=<?php echo urlencode($row['sector'])?>&rollno=<?php echo urlencode($row['rollno']) ?>" class="link-dark"><i class="fa-solid fa-circle-xmark"></i></a>
+                        </td>  
+                        <!-- view all info -->
+                        
+                    </tr>
+                <?php
+            }
+        }
+    ?>
+    
+    
+    
+  </tbody>
+</table>
+</body>

@@ -1,0 +1,209 @@
+
+                                                  Information regarding tables
+Tables related to student.
+mainstudenttable
+mysql> DESC mainstudenttable;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| name      | varchar(100) | YES  |     | NULL    |       |
+| rollno    | varchar(100) | NO   | PRI | NULL    |       |
+| email     | varchar(100) | YES  |     | NULL    |       |
+| phno      | varchar(100) | YES  |     | NULL    |       |
+| branch    | varchar(100) | YES  |     | NULL    |       |
+| yop       | varchar(100) | YES  |     | NULL    |       |
+| degree    | varchar(100) | YES  |     | NULL    |       |
+| dob       | varchar(100) | YES  |     | NULL    |       |
+| password  | varchar(100) | YES  |     | NULL    |       |
+| 10thmarks | varchar(100) | YES  |     | NULL    |       |
+| 12thmarks | varchar(100) | YES  |     | NULL    |       |
+| sem1      | varchar(100) | YES  |     | NULL    |       |
+| sem2      | varchar(100) | YES  |     | NULL    |       |
+| sem3      | varchar(100) | YES  |     | NULL    |       |
+| sem4      | varchar(100) | YES  |     | NULL    |       |
+| sem5      | varchar(100) | YES  |     | NULL    |       |
+| sem6      | varchar(100) | YES  |     | NULL    |       |
+| sem7      | varchar(100) | YES  |     | NULL    |       |
+| sem8      | varchar(100) | YES  |     | NULL    |       |
+| cpi       | float        | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+20 rows in set (0.01 sec)
+
+This table consists of the basic information related to a student
+
+sidestudenttable
+mysql> DESC sidestudenttable;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| rollno           | varchar(100) | YES  | MUL | NULL    |       |
+| resumelink       | varchar(200) | YES  |     | NULL    |       |
+| sector           | varchar(100) | YES  |     | NULL    |       |
+| location         | varchar(100) | YES  |     | NULL    |       |
+| placement_status | varchar(100) | YES  |     | NULL    |       |
+| recent_job       | varchar(100) | YES  |     | NULL    |       |
+| recent_salary    | varchar(100) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+This table contains the resume link that can be updated whenever needed.
+It also contains the information related to the recent job.
+rollno attribute is a foreign key here referred from mainstudenttable
+
+
+Tables related to company.
+company
+mysql> DESC company;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int unsigned | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(100) | YES  |     | NULL    |                |
+| email    | varchar(100) | YES  |     | NULL    |                |
+| mission  | varchar(100) | YES  |     | NULL    |                |
+| website  | varchar(100) | YES  |     | NULL    |                |
+| password | varchar(100) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+This contains information of all companies participating in the drive.
+We are giving a unique id to every company in the every drive to uniquely identify it.
+Mission attribute talks about the vision of the company and we can see if the mission is inlined with college guidelines.
+
+jobs
+mysql> DESC jobs;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| id          | int unsigned  | YES  | MUL | NULL    |       |
+| sector      | varchar(100)  | YES  |     | NULL    |       |
+| title       | varchar(100)  | YES  |     | NULL    |       |
+| description | varchar(1000) | YES  |     | NULL    |       |
+| locations   | varchar(225)  | YES  |     | NULL    |       |
+| elcpi       | float         | YES  |     | NULL    |       |
+| mode        | varchar(10)   | YES  |     | NULL    |       |
+| applidate   | date          | YES  |     | NULL    |       |
+| interdate   | date          | YES  |     | NULL    |       |
+| rounds      | int           | YES  |     | NULL    |       |
+| salary      | float         | YES  |     | NULL    |       |
+| branches    | varchar(20)   | YES  |     | NULL    |       |
+| bonus       | varchar(1000) | YES  |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+13 rows in set (0.00 sec)
+
+This contains the information of all jobs being provided by all companies.
+id attribute is foreign key referred by company.
+id stays the same for all jobs being given by a single company.
+elcpi attribute talks about the cpi criteria for the particular job.
+applidate attribute talks about the deadline of applying to the job
+interdate attribute talks about the interview date.
+rounds attribute is the number of rounds the interview happens in.
+The company constantly updates the interview dates of the next round of the interview
+branches attribute is the branch wise Eligibility criteria, we used bitmapping to identify the eligible branches. 0 if not applicable and 1 if eligible
+bonus attribute specifies any additional benefits/ incentives.
+
+Tables related to alumni.
+alumni
+mysql> DESC alumni;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int          | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(100) | YES  |     | NULL    |                |
+| rollno   | varchar(100) | YES  |     | NULL    |                |
+| degree   | varchar(100) | YES  |     | NULL    |                |
+| branch   | varchar(100) | YES  |     | NULL    |                |
+| email    | varchar(100) | YES  |     | NULL    |                |
+| phno     | varchar(100) | YES  |     | NULL    |                |
+| yop      | varchar(100) | YES  |     | NULL    |                |
+| dob      | varchar(100) | YES  |     | NULL    |                |
+| password | varchar(100) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+10 rows in set (0.00 sec)
+
+id here is the primary key.
+
+alumnistatus
+mysql> DESC alumnistatus;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| id          | int           | YES  | MUL | NULL    |       |
+| sector      | varchar(100)  | YES  |     | NULL    |       |
+| title       | varchar(100)  | YES  |     | NULL    |       |
+| location    | varchar(100)  | YES  |     | NULL    |       |
+| startdate   | varchar(100)  | YES  |     | NULL    |       |
+| enddate     | varchar(100)  | YES  |     | NULL    |       |
+| description | varchar(1000) | YES  |     | NULL    |       |
+| company     | varchar(100)  | YES  |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+id here is the foreign key referred by alumni.
+
+alumnihirejobs
+mysql> DESC alumnihirejobs;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| id          | int           | YES  | MUL | NULL    |       |
+| sector      | varchar(100)  | YES  |     | NULL    |       |
+| title       | varchar(100)  | YES  |     | NULL    |       |
+| description | varchar(1000) | YES  |     | NULL    |       |
+| locations   | varchar(225)  | YES  |     | NULL    |       |
+| cpi         | float         | YES  |     | NULL    |       |
+| mode        | varchar(100)  | YES  |     | NULL    |       |
+| applidate   | date          | YES  |     | NULL    |       |
+| interdate   | date          | YES  |     | NULL    |       |
+| rounds      | int           | YES  |     | NULL    |       |
+| salary      | float         | YES  |     | NULL    |       |
+| branches    | varchar(20)   | YES  |     | NULL    |       |
+| bonus       | varchar(1000) | YES  |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+13 rows in set (0.00 sec)
+id here is the foreign key corresponding to alumni.
+
+
+Some extra tables which we have created for ease of access and streamlining the entire hiring process:
+
+studentapply
+mysql> desc studentapply;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| rollno   | varchar(100) | YES  | MUL | NULL    |       |
+| id       | int unsigned | YES  | MUL | NULL    |       |
+| title    | varchar(100) | YES  |     | NULL    |       |
+| sector   | varchar(100) | YES  |     | NULL    |       |
+| status   | varchar(10)  | YES  |     | NULL    |       |
+| salary   | float        | YES  |     | NULL    |       |
+| location | varchar(100) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+This table contains the rollno of student who has applied for a job and the id of the company which provides the job. Both are foreign keys to mainstudenttable and company respectively.
+It has information about the sector and title of the job. 
+status attribute shows if the company has accepted or rejected the candidate.
+If accepted, the company will even update the salary, location of hiring.
+
+studentjobs
+mysql> desc studentjobs;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| sjcompname | varchar(100) | YES  |     | NULL    |       |
+| sjsector   | varchar(100) | YES  |     | NULL    |       |
+| sjtitle    | varchar(100) | YES  |     | NULL    |       |
+| sjsalary   | float        | YES  |     | NULL    |       |
+| sjstuname  | varchar(100) | YES  |     | NULL    |       |
+| sjbranch   | varchar(100) | YES  |     | NULL    |       |
+| sjroll     | varchar(10)  | YES  |     | NULL    |       |
+| yop        | year         | YES  |     | NULL    |       |
+| sjloc      | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+This table contains the final job which is accepted by the student.
+
+Working of the webpage:
+
+As a Student:
+The student will first have to register himself in the database. This is achieved by the query 
+
+
